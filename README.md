@@ -69,3 +69,29 @@ List of files to change when installing plura agent on the system.
     /var/log/*
     /var/cache/*
 
+
+# How to compare before and after agent installation
+
+### 1. Before installing the agent, capture the entire file list
+
+    /find / -ls > 2022-02-21-0-all.txt
+    find / -ls 2 > /dev/null|grep -v "/proc/"|grep -v "/sys/" > 2022-02-21-1-all.txt
+    * /proc/*, /sys/* Real-time system information provided by the Linux kernel. Exclude from checklist
+
+
+### 2. List of files 10 minutes before installation
+
+    find / -cmin -10 -ls 2>/dev/null|grep -v "/proc/"|grep -v "/sys/" > before-date-10.txt
+
+### 3. List of files 1 minutes before installation
+
+    find / -cmin -1 -ls 2>/dev/null|grep -v "/proc/"|grep -v "/sys/" > before-date-1.txt
+
+### 4. List of files 1 minutes after installation
+
+    find / -cmin -1 -ls 2>/dev/null|grep -v "/proc/"|grep -v "/sys/" > after-date-1.txt
+
+
+
+
+
